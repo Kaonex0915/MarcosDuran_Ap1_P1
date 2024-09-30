@@ -1,5 +1,150 @@
-﻿<h3>Create</h3>
+﻿@page "/PrestamoPages/Create"
+@page "/PrestamoPages/Create/{Id:int}"
+@inject NavigationManager navigationManager
+@inject PrestamoService prestamoService
+@rendermode InteractiveServer
+
+
+<EditForm Model="prestamo" OnValidSubmit="Guardar" FormName="PrestamoForm">
+    <DataAnnotationsValidator />
+    <div class="card">
+
+        <div class="card-header">
+            <h1>Registro de prestamo</h1>
+        </div>
+
+        <div class="card-body">
+
+            <label>ID:</label>
+            <div class="input-group">
+                <InputNumber @bind-Value="prestamo.DeudorId" class="form-control"></InputNumber>
+                <button type="button" class="btn btn-outline-primary oi oi-magnifying-glass" @onclick="Buscar"></button>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Nombres:</label>
+                    <InputText @bind-Value="prestamo.Nombres" class="form-control"></InputText>
+                    <ValidationMessage For="@(() => prestamo.Nombres)" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card-footer d-flex justify-content-center">
+            <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
+            <button type="submit" class="btn btn-outline-success">Guardar <i class="bi bi-floppy mt-3" /></button>
+            <a class="btn btn-outline-primary" href="/">
+                <span class="bi bi-arrow-left mt-3"></span> Retroceder
+            </a>
+        </div>
+    </div>
+</EditForm>
+
 
 @code {
+    [Parameter]
+    public int? Id { get; set; }
+    public Prestamo prestamo { get; set; } = new Prestamo();
 
+
+    private bool Existe = false;
+
+    public async Task Buscar()
+    {
+        var prestamoEncontrado = await prestamoService.Buscar(prestamo.DeudorId);
+
+        if (prestamoEncontrado != null)
+        {
+            prestamo = prestamoEncontrado;
+        }
+    }
+
+    public void Nuevo()
+    {
+        prestamo = new Prestamo();
+        Existe = false;
+    }
+
+    public async Task Guardar()
+    {
+        var guardo = await prestamoService.Guardar(this.prestamo);
+        Nuevo();
+    }
+
+    public async Task Eliminar()
+    {
+        var eliminado = await prestamoService.Eliminar(prestamo.DeudorId);
+
+        Nuevo();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*
+@page "/RegistroPages/Create"
+@page "/RegistroPages/Create/{Id:int}"
+@inject NavigationManager navigationManager
+@rendermode InteractiveServer
+@inject RegistroService registroService
+
+
+
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    public Registro registro { get; set; } = new Registro();
+    private bool Existe = false;
+
+    public async Task Buscar()
+    {
+        var registroEncontrado = await registroService.Buscar(registro.ID);
+
+        if (registroEncontrado != null)
+        {
+            registro = registroEncontrado;
+        }
+    }
+
+    public void Nuevo()
+    {
+        registro = new Registro();
+        Existe = false;
+    }
+
+    public async Task Guardar()
+    {
+        var guardo = await registroService.Guardar(this.registro);
+        Nuevo();
+    }
+
+    public async Task Eliminar()
+    {
+        var eliminado = await registroService.Eliminar(registro.ID);
+
+        Nuevo();
+    }
+}
+
+
+
+*@
