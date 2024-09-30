@@ -1,5 +1,6 @@
 using MarcosDuran_Ap1_P1.Components;
 using MarcosDuran_Ap1_P1.Components.DAL;
+using MarcosDuran_Ap1_P1.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 var ConStr = builder.Configuration.GetConnectionString("ConStr");
 builder.Services.AddDbContext<Contexto>(o => o.UseSqlite(ConStr));
+builder.Services.AddScoped<PrestamoService>();
 
 var app = builder.Build();
 
