@@ -6,7 +6,7 @@ public class Prestamo
     [Key ] 
     public int DeudorId { get; set; }
     [Required]
-    public string Deudor { get; set; }
+    public string Nombres { get; set; }
     [Required]
     public string Concepto { get; set; }
     [Required]
