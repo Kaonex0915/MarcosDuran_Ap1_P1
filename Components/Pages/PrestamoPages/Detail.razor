@@ -1,5 +1,58 @@
-﻿<h3>Detail</h3>
+﻿@page "/PrestamoPages/Detail"
+@page "/PrestamoPages/Detail/{Id: int}"
+@inject NavigationManager navigationManager
+@inject PrestamoService prestamoService
+@rendermode InteractiveServer
 
-@code {
+<PageTitle>Detalle de prestamo</PageTitle>
+
+@if (prestamo != null)
+{
+    <div class="card">
+        <div class="card-header">
+            <h1>Detalles del Prestamo</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>ID:</label>
+                    <InputNumber @bind-Value="prestamo.DeudorId" class="form-control" Disabled="true"></InputNumber>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Nombre:</label>
+                    <InputText @bind-Value="prestamo.Nombres" class="form-control" Disabled="true"></InputText>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+            <a type="button" href="/" class="btn btn-outline-primary"><span class="bi bi-arrow-left"></span> Volver</a>
+        </div>
+
+    </div>
+}
+else
+{
+    <h1>Prestamo no encontrado</h1>
+}
+
+
+@code{
+    [Parameter]
+    public int Id { get; set; }
+    public Prestamo prestamo { get; set; } = new Prestamo();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id != 0)
+        {
+            prestamo = await prestamoService.Buscar(Id);
+        }
+    }
+
+    public void Volver()
+    {
+        navigationManager.NavigateTo("/");
+    }
 
 }
