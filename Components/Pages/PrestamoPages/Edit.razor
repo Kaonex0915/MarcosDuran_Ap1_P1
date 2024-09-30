@@ -1,5 +1,94 @@
-﻿<h3>Edit</h3>
+﻿@page "/PrestamoPages/Edit/"
+@page "/PrestamoPages/Edi/{Id: int}"
+@rendermode InteractiveServer
+@inject NavigationManager navigationManager
+@inject PrestamoService prestamoService
+
+<EditForm Model="prestamo" OnValidSubmit="Guardar" FormName="editform">
+    <DataAnnotationsValidator />
+    <div class="card">
+
+        <div class="card-header">
+            <h1>Editar</h1>
+        </div>
+
+        <div class="card-body">
+
+            <label>ID:</label>
+            <div class="input-group">
+                <InputNumber @bind-Value="prestamo.DeudorId" class="form-control"></InputNumber>
+                <button type="button" class="btn btn-outline-primary oi oi-magnifying-glass" @onclick="Buscar"></button>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Nombre:</label>
+                    <InputText @bind-Value="prestamo.Nombres" class="form-control"></InputText>
+                    <ValidationMessage For="@(() => prestamo.Nombres)" />
+                </div>
+                
+                <div class="col-md-6">
+                <label>Monto</label>
+                <InputNumber @bind-Value="prestamo.Monto" class="form-control"></InputNumber>
+                <ValidationMessage For="@(() => prestamo.Monto)" />
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="card-footer d-flex justify-content-center">
+            <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
+            <button type="submit" class="btn btn-outline-success">Guardar <i class="bi bi-floppy mt-3" /></button>
+            <a class="btn btn-outline-primary" href="/">
+                <span class="bi bi-arrow-left mt-3"></span> Retroceder
+            </a>
+        </div>
+    </div>
+    
+</EditForm>
 
 @code {
+    [Parameter]
+    public int? Id { get; set; }
 
+    public Prestamo prestamo { get; set; } = new Prestamo();
+    private bool Existe = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id.HasValue)
+        {
+            prestamo.DeudorId = Id.Value;
+            await Buscar();
+        }
+    }
+
+    public async Task Buscar()
+    {
+        var prestamoEncontrado = await prestamoService.Buscar(prestamo.DeudorId);
+
+        if (prestamoEncontrado != null)
+        {
+            prestamo = prestamoEncontrado;
+        }
+    }
+
+
+    public void Nuevo()
+    {
+        prestamo = new Prestamo();
+        Existe = false;
+    }
+
+    public async Task Guardar()
+    {
+        var guardo = await prestamoService.Guardar(this.prestamo);
+        Nuevo();
+    }
+
+    public async Task Eliminar()
+    {
+        var eliminado = await prestamoService.Eliminar(prestamo.DeudorId);
+        Nuevo();
+    }
 }
