@@ -14,8 +14,8 @@
             <div class="col-md-3">
                 <label for="Filtro" class="form-label">Filtrar por:</label>
                 <select @bind="filtro" class="form-select">
-                    <option value="Id">ID</option>
-                    <option value="Nombre">Nombre</option>
+                    <option value="DeudorId">DeudorId</option>
+                    <option value="Nombres">Nombres</option>
                 </select>
             </div>
             <div class="col-md-6">
@@ -105,7 +105,6 @@
             {
                 ListaPrestamos = await prestamoService.Listar(p => p.Nombres == valorFiltro);
             }
-
         }
         else
         {
@@ -114,48 +113,3 @@
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*
-@page "/"
-@rendermode InteractiveServer
-@inject RegistroService registroService
-@inject NavigationManager navigationManager
-
-
-
-
-
-
-
-
-
-*@
-
-
-
-

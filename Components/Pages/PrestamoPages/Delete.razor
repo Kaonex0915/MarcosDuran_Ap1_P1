@@ -1,5 +1,5 @@
 ﻿@page "/PrestamoPages/Delete"
-@page "/PrestamoPages/Delete/{Id: int}"
+@page "/PrestamoPages/Delete/{Id:int}"
 @inject NavigationManager navigationManager
 @inject PrestamoService prestamoService
 @rendermode InteractiveServer
@@ -76,7 +76,7 @@ else
 
     public void Volver()
     {
-        navigationManager.NavigateTo("/");
+        navigationManager.NavigateTo("/PrestamoPages/Index/");
     }
 
 }

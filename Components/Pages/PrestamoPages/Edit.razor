@@ -1,5 +1,5 @@
 ﻿@page "/PrestamoPages/Edit/"
-@page "/PrestamoPages/Edi/{Id: int}"
+@page "/PrestamoPages/Edit/{Id:int}"
 @rendermode InteractiveServer
 @inject NavigationManager navigationManager
 @inject PrestamoService prestamoService
@@ -28,9 +28,15 @@
                 </div>
                 
                 <div class="col-md-6">
-                <label>Monto</label>
-                <InputNumber @bind-Value="prestamo.Monto" class="form-control"></InputNumber>
-                <ValidationMessage For="@(() => prestamo.Monto)" />
+                <label>Concepto:</label>
+                <InputText @bind-Value="prestamo.Concepto" class="form-control"></InputText>
+                <ValidationMessage For="@(() => prestamo.Concepto)" />
+                </div>
+
+                <div class="col-md-6">
+                    <label>Monto</label>
+                    <InputNumber @bind-Value="prestamo.Monto" class="form-control"></InputNumber>
+                    <ValidationMessage For="@(() => prestamo.Monto)" />
                 </div>
                 
             </div>
@@ -39,7 +45,7 @@
         <div class="card-footer d-flex justify-content-center">
             <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
             <button type="submit" class="btn btn-outline-success">Guardar <i class="bi bi-floppy mt-3" /></button>
-            <a class="btn btn-outline-primary" href="/">
+            <a class="btn btn-outline-primary" href="/PrestamoPages/Index">
                 <span class="bi bi-arrow-left mt-3"></span> Retroceder
             </a>
         </div>

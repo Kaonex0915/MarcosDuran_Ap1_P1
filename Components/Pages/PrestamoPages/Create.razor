@@ -6,7 +6,7 @@
 
 
 <EditForm Model="prestamo" OnValidSubmit="Guardar" FormName="PrestamoForm">
-    <DataAnnotationsValidator />
+    <DataAnnotationsValidator/>
     <div class="card">
 
         <div class="card-header">
@@ -28,13 +28,25 @@
                     <ValidationMessage For="@(() => prestamo.Nombres)" />
                 </div>
 
+                <div class="col-md-6">
+                    <label>Concepto:</label>
+                    <InputText @bind-Value="prestamo.Concepto" class="form-control"></InputText>
+                    <ValidationMessage For="@(() => prestamo.Concepto)" />
+                </div>
+
+                <div class="col-md-6">
+                    <label>Monto:</label>
+                    <InputNumber @bind-Value="prestamo.Monto" class="form-control"></InputNumber>
+                    <ValidationMessage For="@(() => prestamo.Monto)" />
+                </div>
+
             </div>
         </div>
 
         <div class="card-footer d-flex justify-content-center">
             <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
             <button type="submit" class="btn btn-outline-success">Guardar <i class="bi bi-floppy mt-3" /></button>
-            <a class="btn btn-outline-primary" href="/">
+            <a class="btn btn-outline-primary" href="/PrestamoPages/Index/">
                 <span class="bi bi-arrow-left mt-3"></span> Retroceder
             </a>
         </div>
@@ -79,72 +91,3 @@
         Nuevo();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*
-@page "/RegistroPages/Create"
-@page "/RegistroPages/Create/{Id:int}"
-@inject NavigationManager navigationManager
-@rendermode InteractiveServer
-@inject RegistroService registroService
-
-
-
-
-@code {
-    [Parameter]
-    public int? Id { get; set; }
-
-    public Registro registro { get; set; } = new Registro();
-    private bool Existe = false;
-
-    public async Task Buscar()
-    {
-        var registroEncontrado = await registroService.Buscar(registro.ID);
-
-        if (registroEncontrado != null)
-        {
-            registro = registroEncontrado;
-        }
-    }
-
-    public void Nuevo()
-    {
-        registro = new Registro();
-        Existe = false;
-    }
-
-    public async Task Guardar()
-    {
-        var guardo = await registroService.Guardar(this.registro);
-        Nuevo();
-    }
-
-    public async Task Eliminar()
-    {
-        var eliminado = await registroService.Eliminar(registro.ID);
-
-        Nuevo();
-    }
-}
-
-
-
-*@

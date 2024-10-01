@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using MarcosDuran_Ap1_P1.Models;
 using System.Linq.Expressions;
 
-
-
 namespace MarcosDuran_Ap1_P1.Services;
 
 public class PrestamoService

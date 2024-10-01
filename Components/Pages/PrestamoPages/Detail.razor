@@ -1,5 +1,5 @@
 ﻿@page "/PrestamoPages/Detail"
-@page "/PrestamoPages/Detail/{Id: int}"
+@page "/PrestamoPages/Detail/{Id:int}"
 @inject NavigationManager navigationManager
 @inject PrestamoService prestamoService
 @rendermode InteractiveServer
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="card-footer d-flex justify-content-center">
-            <a type="button" href="/" class="btn btn-outline-primary"><span class="bi bi-arrow-left"></span> Volver</a>
+            <a type="button" href="/PrestamoPages/Index/" class="btn btn-outline-primary"><span class="bi bi-arrow-left"></span> Volver</a>
         </div>
 
     </div>
@@ -52,7 +52,7 @@ else
 
     public void Volver()
     {
-        navigationManager.NavigateTo("/");
+        navigationManager.NavigateTo("/PrestamoPages/Index/");
     }
 
 }
