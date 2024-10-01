@@ -5,10 +5,10 @@ public class Prestamo
 {
     [Key ] 
     public int DeudorId { get; set; }
-    [Required]
+    [Required(ErrorMessage ="El nombre del deudor es requerido")]
     public string Nombres { get; set; }
-    [Required]
+    [Required(ErrorMessage ="El concepto del prestamo es requerido")]
     public string Concepto { get; set; }
-    [Required]
+    [Required(ErrorMessage = "El monto del prestamo es requerido")]
     public int Monto { get; set; }
 }

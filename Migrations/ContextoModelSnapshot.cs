@@ -16,19 +16,26 @@ namespace MarcosDuran_Ap1_P1.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
 
-            modelBuilder.Entity("MarcosDuran_Ap1_P1.Components.Models.Registro", b =>
+            modelBuilder.Entity("MarcosDuran_Ap1_P1.Models.Prestamo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("DeudorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Concepto")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Monto")
+                        .HasColumnType("INTEGER");
 
-                    b.ToTable("Registro");
+                    b.Property<string>("Nombres")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("DeudorId");
+
+                    b.ToTable("Prestamo");
                 });
 #pragma warning restore 612, 618
         }
